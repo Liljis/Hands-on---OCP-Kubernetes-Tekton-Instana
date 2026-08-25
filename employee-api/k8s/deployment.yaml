@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
       - name: employee-api
-        image: nginx:latest
-
+        image: image-registry.openshift-image-registry.svc:5000/chapter1/employee-api:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080

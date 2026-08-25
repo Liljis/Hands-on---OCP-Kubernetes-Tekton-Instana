@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return {
-        "message": "Employee API Running"
+        "message": os.getenv("APP_NAME", "Employee API")
     }
 
 @app.route("/health")
@@ -18,7 +18,7 @@ def health():
 @app.route("/version")
 def version():
     return {
-        "version": "1.0"
+        "version": os.getenv("APP_VERSION", "1.0")
     }
 
 if __name__ == "__main__":
