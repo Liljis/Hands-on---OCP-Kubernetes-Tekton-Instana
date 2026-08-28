@@ -20,3 +20,25 @@ spec:
         image: image-registry.openshift-image-registry.svc:5000/chapter1/employee-api:latest
         ports:
         - containerPort: 8080
+
+        env:
+        - name: APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: employee-api-config
+              key: APP_NAME
+
+        - name: APP_VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: employee-api-config
+              key: APP_VERSION
+
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: employee-api-secret
+              key: API_KEY
+
+        ports:
+        - containerPort: 8080
