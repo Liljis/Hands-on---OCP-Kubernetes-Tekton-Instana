@@ -21,5 +21,13 @@ def version():
         "version": os.getenv("APP_VERSION", "1.0")
     }
 
+@app.route("/config")
+def config():
+    return {
+        "app_name": os.getenv("APP_NAME", "Employee API"),
+        "app_version": os.getenv("APP_VERSION", "1.0"),
+        "api_key_present": bool(os.getenv("API_KEY"))
+    }
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
