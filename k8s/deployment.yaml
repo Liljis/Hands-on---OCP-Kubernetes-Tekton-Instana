@@ -2,24 +2,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: employee-api
+  labels:
+    app: employee-api
+    app.kubernetes.io/component: employee-api
+    app.kubernetes.io/instance: employee-api
+
 spec:
   replicas: 1
 
   selector:
     matchLabels:
-      app: employee-api
+      deployment: employee-api
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
 
   template:
     metadata:
       labels:
-        app: employee-api
+        deployment: employee-api
 
     spec:
       containers:
       - name: employee-api
+
         image: image-registry.openshift-image-registry.svc:5000/chapter1/employee-api:latest
-        ports:
-        - containerPort: 8080
+
+        imagePullPolicy: IfNotPresent
 
         env:
         - name: APP_NAME
@@ -42,3 +54,4 @@ spec:
 
         ports:
         - containerPort: 8080
+          protocol: TCP
